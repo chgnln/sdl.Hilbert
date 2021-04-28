@@ -1,5 +1,6 @@
 package jp.ac.titech.itpro.sdl.hilbert;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final static String KEY_ORDER = "MainActivity.order";
     private final static int MAX_ORDER = 9;
     private int order = 1;
 
@@ -43,12 +45,21 @@ public class MainActivity extends AppCompatActivity {
                 display();
             }
         });
+        if (savedInstanceState != null) {
+            order = savedInstanceState.getInt(KEY_ORDER);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         display();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_ORDER, order);
     }
 
     private void display() {
